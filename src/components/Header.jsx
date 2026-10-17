@@ -1,25 +1,14 @@
-
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { auth, db } from "../firebaseConfig";
-import { onAuthStateChanged } from "firebase/auth";
-import { doc, onSnapshot } from "firebase/firestore";
-import PaymentInProgressModal from "./PaymentInProgressModal";
-import  { useAppContext } from "./Context";
-import { useCart } from "@/components/CartContext";
-
-
+import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 /* ================= COLORS ================= */
-const PrimaryColor = "#00AEEF"; // Bright Cyan / Teal Blue from the logo
-const AccentGradient = "linear-gradient(135deg, #0B1B48 0%, #00AEEF 100%)"; // Dark Navy -> Bright Cyan
-const Dark = "#0B1B48"; // Updated to Enitz Dark Navy Blue
-const Border = "#e2e8f0";
+const PrimaryColor = "#ffcc00"; 
+const DarkText = "#101c38";     
+const Border = "#e2e8f0";       
 const White = "#ffffff";
-const Turquoise = "#00AEEF";
-// const ThemeGradient = "linear-gradient(135deg, #0B1B48 0%, #00AEEF 100%)";
+const TextGray = "#333333";     
 
 /* ================= HEADER ================= */
 const HeaderContainer = styled.header`
@@ -29,48 +18,35 @@ const HeaderContainer = styled.header`
   width: 100%;
   z-index: 300;
 
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
   border-bottom: 1px solid ${Border};
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 `;
 
 const Inner = styled.div`
-  max-width: 1200px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.3rem 1.5rem;
-
- span {
-    background: ${AccentGradient};
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight:900;
-  }
-
-
+  padding: 0.5rem 1rem;
 `;
 
 /* ================= LOGO ================= */
-const Logo = styled.div`
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: ${Dark};
-  cursor: pointer;
+const LogoWrapper = styled(Link)`
+  text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 10px;
+  cursor: pointer;
+`;
 
-  span {
-    background: ${AccentGradient};
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+const LogoImg = styled.img`
+  height: 40px;
+  width: auto;
+  display: block;
 `;
 
 /* ================= NAV ================= */
@@ -79,16 +55,16 @@ const Nav = styled.nav`
   align-items: center;
   gap: 2rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     position: fixed;
-    top: 73px;
+    top: 55px; /* Exact height of header */
     right: 0;
     width: 80%;
     max-width: 320px;
-    height: calc(100vh - 73px);
+    height: calc(100vh - 55px);
     background: ${White};
     border-left: 1px solid ${Border};
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
     flex-direction: column;
     align-items: flex-start;
     padding: 2.5rem 2rem;
@@ -101,9 +77,9 @@ const Nav = styled.nav`
 /* ================= LINKS ================= */
 const NavLink = styled(Link)`
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: ${(p) => (p.$active ? PrimaryColor : Dark)};
+  color: ${(p) => (p.$active ? PrimaryColor : TextGray)};
   position: relative;
   transition: color 0.2s ease;
 
@@ -111,25 +87,11 @@ const NavLink = styled(Link)`
     color: ${PrimaryColor};
   }
 
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: ${(p) => (p.$active ? "100%" : "0")};
-    height: 2px;
-    background: ${AccentGradient};
-    transition: width 0.3s ease;
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     font-size: 1.1rem;
     width: 100%;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid ${Border};
-    &::after {
-      display: none;
-    }
   }
 `;
 
@@ -139,7 +101,7 @@ const NavActions = styled.div`
   align-items: center;
   gap: 1rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     width: 100%;
     flex-direction: column;
     gap: 0.75rem;
@@ -151,24 +113,24 @@ const NavActions = styled.div`
 
 const AuthButton = styled(Link)`
   text-decoration: none;
-  padding: 0.55rem 1.25rem;
-  border-radius: 6px;
+  padding: 0.4rem 1.25rem;
+  border-radius: 4px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-align: center;
   transition: all 0.2s ease;
 
-  background: ${(p) => (p.$isPrimary ? AccentGradient : "transparent")};
-  color: ${(p) => (p.$isPrimary ? White : Dark)};
+  background: ${(p) => (p.$isPrimary ? PrimaryColor : "transparent")};
+  color: ${(p) => (p.$isPrimary ? DarkText : DarkText)};
   border: ${(p) => (p.$isPrimary ? "none" : `1px solid ${Border}`)};
 
   &:hover {
     opacity: 0.9;
     transform: translateY(-1px);
-    border-color: ${PrimaryColor};
+    background: ${(p) => (p.$isPrimary ? PrimaryColor : "rgba(0,0,0,0.05)")};
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     width: 100%;
     padding: 0.75rem;
   }
@@ -182,7 +144,7 @@ const Hamburger = styled.button`
   cursor: pointer;
   padding: 4px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -193,7 +155,7 @@ const Hamburger = styled.button`
   div {
     width: 100%;
     height: 2.5px;
-    background: ${Dark};
+    background: ${DarkText};
     border-radius: 2px;
     transition: all 0.3s ease-in-out;
   }
@@ -209,7 +171,7 @@ const Hamburger = styled.button`
 
   &.open div:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
-    background: ${Turquoise};
+    background: ${PrimaryColor};
   }
 `;
 
@@ -218,7 +180,7 @@ const Overlay = styled.div`
   display: ${(p) => (p.$open ? "block" : "none")};
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.4);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
   z-index: 99;
   transition: opacity 0.3s ease;
@@ -227,100 +189,73 @@ const Overlay = styled.div`
 /* ================= COMPONENT ================= */
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const [userData, setUserData] = useState(null);
-  const { paymentSession } = useAppContext();
-  const { cartTotalItems } = useCart();
+ 
+  const location = useLocation();
 
+  const userData = useSelector(state=>state.userInfo)
 
-  useEffect(() => {
-    let unsubscribeDoc = null;
-
-    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const userRef = doc(db, "users", user.uid);
-        unsubscribeDoc = onSnapshot(userRef, (userSnap) => {
-          if (userSnap.exists()) {
-            setUserData(userSnap.data());
-          }
-        });
-      } else {
-        setUserData(null);
-        if (unsubscribeDoc) {
-          unsubscribeDoc();
-        }
-      }
-    });
-
-    return () => {
-      unsubscribeAuth();
-      if (unsubscribeDoc) unsubscribeDoc();
-    };
-  }, []);
+  const handleNavClick = () => {
+    setOpen(false);
+  };
 
   return (
     <>
       <Overlay $open={open} onClick={() => setOpen(false)} />
 
       <HeaderContainer>
-        {paymentSession && <PaymentInProgressModal />}
         <Inner>
-          <Link href="/" onClick={() => setOpen(false)} style={{ textDecoration: 'none' }}> 
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <img src="/logo.jpeg" alt="Enitz Logo" style={{ height: "45px", borderRadius: "8px" }} />    
-            <span style={{color:`${AccentGradient}`}}>ENITZ</span>
-            </div>
-          </Link>
+          <LogoWrapper to="/" onClick={handleNavClick}>
+            <LogoImg 
+              src="/logo.jpeg" 
+              alt="Savannah Bananas Logo" 
+            />
+          </LogoWrapper>
 
-          <>
-            <Nav $open={open}>
-              <NavLink href="/" $active={pathname === "/"} onClick={() => setOpen(false)}>Home</NavLink>
-              <NavLink href="/store" $active={pathname === "/store"} onClick={() => setOpen(false)}>Shop</NavLink>
-              <NavLink href="/cart" $active={pathname === "/cart"} onClick={() => setOpen(false)}>
-                Cart ({cartTotalItems})
-              </NavLink>
+          <Nav $open={open}>
+            <NavLink to="/" $active={location.pathname === "/"} onClick={handleNavClick}>
+              Home
+            </NavLink>
 
-              <NavLink href="/about" $active={pathname === "/about"} onClick={() => setOpen(false)}>About Us</NavLink>
-              <NavLink href="/testimonials" $active={pathname === "/testimonials"} onClick={() => setOpen(false)}>Reviews</NavLink>
-              
-              <NavLink href="/contact" $active={pathname === "/contact"} onClick={() => setOpen(false)}>Contact</NavLink>
- 
-              <NavActions>
-                {!userData && (
-                  <AuthButton 
-                    href="/signup" 
-                    $isPrimary={false}
-                    onClick={() => setOpen(false)}
-                  >
-                    Sign Up
-                  </AuthButton>
-                )}
+            <NavLink to="/about" $active={location.pathname === "/about"} onClick={handleNavClick}>
+              About
+            </NavLink>
 
+            <NavLink to="/contact" $active={location.pathname === "/contact"} onClick={handleNavClick}>
+              Contact
+            </NavLink>
+
+            <NavActions>
+              {!userData && (
                 <AuthButton 
-                  href={userData ? "/dashboard" : "/login"} 
-                  $isPrimary={true}
-                  onClick={() => setOpen(false)}
+                  to="/signup" 
+                  $isPrimary={false}
+                  onClick={handleNavClick}
                 >
-                  {userData ? "My Dashboard" : "Login"}
+                  Sign Up
                 </AuthButton>
-              </NavActions>
-            </Nav>
+              )}
 
-            <Hamburger
-              onClick={() => setOpen(!open)}
-              className={open ? "open" : ""}
-              aria-label="Toggle navigation menu"
-            >
-              <div />
-              <div />
-              <div />
-            </Hamburger>
-          </>
+              <AuthButton 
+                to={userData ? "/dashboard" : "/login"} 
+                $isPrimary={true}
+                onClick={handleNavClick}
+              >
+                {userData ? "My Dashboard" : "Login"}
+              </AuthButton>
+            </NavActions>
+          </Nav>
+
+          <Hamburger
+            onClick={() => setOpen(!open)}
+            className={open ? "open" : ""}
+            aria-label="Toggle navigation menu"
+          >
+            <div />
+            <div />
+            <div />
+          </Hamburger>
         </Inner>
       </HeaderContainer>
-
-      <div style={{ height: "73px" }} />
-  
     </>
   );
 }
