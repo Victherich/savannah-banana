@@ -28,6 +28,8 @@ export default function MyTickets() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  console.log(orders)
+
   useEffect(() => {
     if (!currentUser || !currentUser.id) {
       navigate("/login");
@@ -67,16 +69,16 @@ export default function MyTickets() {
 
   const renderStatusBadge = (status) => {
     const normalizedStatus = (status || "pending").toLowerCase();
-    if (normalizedStatus === "completed" || normalizedStatus === "approved" || normalizedStatus === "confirmed") {
+    if (normalizedStatus === "active") {
       return (
         <Badge status="success">
-          <FaCheckCircle /> Confirmed
+          <FaCheckCircle /> Active
         </Badge>
       );
-    } else if (normalizedStatus === "rejected" || normalizedStatus === "failed") {
+    } else if (normalizedStatus === "inactive") {
       return (
         <Badge status="error">
-          <FaTimesCircle /> Rejected
+          <FaTimesCircle /> Inactive
         </Badge>
       );
     } else {
@@ -122,14 +124,19 @@ export default function MyTickets() {
                     <TicketTitle>{getTicketTitle(order.ticket_id, order.ticket_title)}</TicketTitle>
                   </TicketTitleGroup>
                   {renderStatusBadge(order.status)}
+                  
+                  
                 </CardHeader>
+               {order.ticket_code && <CardHeader style={{fontWeight:"bold"}}>
+                 <span style={{color:Yellow}}>Ticket Code:</span>  {order.ticket_code}
+                </CardHeader>}
 
                 <CardBody>
                   <InfoRow>
                     <span>Order ID:</span>
                     <strong>#{order.id}</strong>
-                  </InfoRow>
 
+                  </InfoRow>
                   <InfoRow>
                     <span>USD Price:</span>
                     <strong>${amountUsdNum.toFixed(2)} USD</strong>

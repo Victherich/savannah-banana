@@ -87,7 +87,7 @@ export default function Checkout() {
     setIsSubmitting(true);
     Swal.fire({
       title: "Submitting Order...",
-      text: "Saving your payment details as pending...",
+      text: "Saving your payment details",
       allowOutsideClick: false,
       didOpen: () => Swal.showLoading(),
     });

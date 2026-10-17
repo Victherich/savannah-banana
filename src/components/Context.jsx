@@ -5,7 +5,11 @@ export const Context = createContext();
 const ContextProvider = ({children}) => {
 
 
- const api_url = "https://www.cwmsrfupre.com.ng/api"
+//  const api_url = "https://www.cwmsrfupre.com.ng/api"
+
+  const api_url = "https://savannahbananasfansfirsttickets.com/api"
+
+    // const api_url = ""
 
    const ticketTiers = [
     {
