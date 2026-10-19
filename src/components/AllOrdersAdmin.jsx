@@ -524,7 +524,8 @@ export default function AllOrdersAdmin({onNavigate}) {
                 <th>Ticket Code</th>
                 <th>Status</th>
                 <th>Action</th>
-                <th>Date</th>
+                <th>Ticket Date</th>
+                <th>Purchase Date</th>
               </tr>
             </thead>
             <tbody>
@@ -569,6 +570,8 @@ export default function AllOrdersAdmin({onNavigate}) {
                           <span>{updatingId === order.id ? "Saving..." : isActive ? "Deactivate" : "Activate"}</span>
                         </ToggleButton>
                       </td>
+                       <td>{order.ticket_date}</td>
+                    
                       <td>{order.created_at ? new Date(order.created_at).toLocaleDateString() : "N/A"}</td>
                     </tr>
                   );
@@ -724,7 +727,7 @@ const TxHash = styled.span`
   border-radius: 4px;
   border: 1px solid ${Border};
   display: inline-block;
-  max-width: 150px;
+  // max-width: 150px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

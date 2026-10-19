@@ -113,7 +113,7 @@ const Signup = () => {
     <Container>
       <FormCard>
         <LogoWrapper onClick={() => navigate('/')}>
-          <LogoImg src="/logo.jpeg" alt="Savannah Bananas Logo" />
+          <LogoImg src="/logo.png" alt="Savannah Bananas Logo" />
         </LogoWrapper>
 
         <Title>Join the Bananas Nation!</Title>

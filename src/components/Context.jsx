@@ -15,7 +15,7 @@ const ContextProvider = ({children}) => {
     {
       id: 1,
       title: "Open Seatings",
-      price: 35,
+      price: 60,
       priceUnit: "USD",
       badge: "Best Value",
       isFeatured: false,

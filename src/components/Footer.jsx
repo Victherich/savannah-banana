@@ -11,14 +11,14 @@ export default function Footer() {
           <LogoWrapper>
             {/* Replace with actual Savannah Bananas logo path or URL */}
             <LogoImage 
-              src="/logo.jpeg"
+              src="/logo.png"
               alt="Savannah Bananas Logo" 
             />
           </LogoWrapper>
           <SupportText>Thank you for supporting Banana Ball!</SupportText>
-          <PhoneLink href="tel:9127122482">
+          {/* <PhoneLink href="tel:9127122482">
             <FaPhoneAlt size={12} /> (912) 712-2482
-          </PhoneLink>
+          </PhoneLink> */}
         </LeftColumn>
 
         {/* Middle Column: Store & Directions */}

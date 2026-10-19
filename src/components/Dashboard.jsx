@@ -12,6 +12,7 @@ import { userLogout } from '../Features/Slice.jsx';
 import ProfileDashboard from './Profile.jsx';
 import MyTickets from './MyTickets.jsx';
 import AllOrdersAdmin from './AllOrdersAdmin.jsx';
+import Passcodes from './Passcodes.jsx';
 // import AdminDetailsPage from './Profile.jsx';
 // import AllAdmin from './AllAdmin';
 // import AllStudents from './AllStudents';
@@ -342,6 +343,10 @@ const Dashboard = () => {
 
                case 'manageticketsorders':
         return <AllOrdersAdmin
+         onNavigate={handleMenuClick}/>;
+
+           case 'passcodes':
+        return <Passcodes
          onNavigate={handleMenuClick}/>;
 
 

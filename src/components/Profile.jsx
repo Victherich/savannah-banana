@@ -153,13 +153,13 @@ export default function ProfileDashboard({ userId, onNavigate, onLogout }) {
           {/* ----- ADMIN ACTIONS ----- */}
           {isAdmin ? (
             <>
-              {/* <StatCard onClick={() => onNavigate("manage_tickets")}>
+              <StatCard onClick={() => onNavigate("passcodes")}>
                 <StatIcon>
                   <FaTicketAlt />
                 </StatIcon>
-                <StatLabel>Manage Tickets</StatLabel>
-                <StatValue>Create, edit, or remove game tickets</StatValue>
-              </StatCard> */}
+                <StatLabel>Passcodes</StatLabel>
+                <StatValue></StatValue>
+              </StatCard>
 
               <StatCard onClick={() => onNavigate("manageticketsorders")}>
                 <StatIcon>

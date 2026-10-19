@@ -33,7 +33,7 @@ export default function TermsAndConditions() {
             <div>
               <NoticeTitle>Important Ticket Pricing Notice</NoticeTitle>
               <NoticeDesc>
-                Ticket prices start at <strong>$35 for Open Seatings</strong> and <strong>$100 for VIB (Very Important Banana)</strong> tickets. Prices are subject to increase once games start or demand rises.
+                Ticket prices start at <strong>$60 for Open Seatings</strong> and <strong>$100 for VIB (Very Important Banana)</strong> tickets. Prices are subject to increase once games start or demand rises.
               </NoticeDesc>
             </div>
           </NoticeBox>
@@ -57,7 +57,7 @@ export default function TermsAndConditions() {
               All ticket sales are subject to availability. Starting ticket prices are set at <strong>$35 (Open Seatings)</strong> and <strong>$100 (VIB)</strong>. You acknowledge and accept that ticket pricing increases dynamically closer to match day or once game play commences.
             </ArticleText>
             <BulletList>
-              <BulletItem>During checkout, customers must select their preferred match date via the date picker selector.</BulletItem>
+              <BulletItem>During checkout, customers must select their preferred match date.</BulletItem>
               <BulletItem>The selected game date determines the specific match and opposing team playing against the Savannah Bananas.</BulletItem>
               <BulletItem>All prices are quoted in USD ($) unless otherwise specified.</BulletItem>
             </BulletList>
