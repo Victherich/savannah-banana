@@ -452,6 +452,7 @@ export default function Home() {
         <PricingGrid>
           {ticketTiers.map((ticket) => (
             <PriceCard key={ticket.id} $featured={ticket.isFeatured}>
+              
               <PriceBadge $yellow={ticket.isFeatured}>{ticket.badge}</PriceBadge>
               <CardTitle>{ticket.title}</CardTitle>
               <PriceTag>
@@ -459,6 +460,12 @@ export default function Home() {
                 {ticket.price}
                 <PriceUnit>{ticket.priceUnit}</PriceUnit>
               </PriceTag>
+            {ticket.image  &&  <img style={{
+                width:"100%",
+                borderRadius:"10px",
+                marginBottom:"10px"
+              }}
+              src={ticket.image} alt="logo"/>}
               <FeatureList>
                 {ticket.features.map((feature, idx) => (
                   <FeatureItem key={idx}>

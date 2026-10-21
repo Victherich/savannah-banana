@@ -15,14 +15,14 @@ const ContextProvider = ({children}) => {
     {
       id: 1,
       title: "Open Seatings",
-      price: 60,
+      price: 35,
       priceUnit: "USD",
       badge: "Best Value",
       isFeatured: false,
       isPrimaryButton: false,
       cryptoRate: 0.00038, // Example conversion rate (USD to BTC/Crypto unit or fixed estimate)
       features: [
-        "Unreserved stadium seating",
+        "First come first serve seating",
         "Full access to all Banana Ball action",
         "Concessions & store access",
         "Instant e-ticket delivery",
@@ -30,8 +30,9 @@ const ContextProvider = ({children}) => {
     },
     {
       id: 2,
+      image:'/flier2.jpeg',
       title: "VIB (Very Important Banana)",
-      price: 100,
+      price: 125,
       priceUnit: "USD",
       badge: "Most Popular",
       isFeatured: true,

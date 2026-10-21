@@ -17,6 +17,7 @@ import Dashboard from './components/Dashboard';
 import VerifyEmail from './components/VerifyEmail';
 import ScrollToTop from './components/ScrollToTop';
 import Checkout from './components/Checkout';
+import PaymentTutorial from './components/PaymentTutorial';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path='/contact' element={<ContactUs/>}/>
       <Route path='/termsandconditions' element={<TermsAndConditions/>}/>
       <Route path='/privacypolicy' element={<PrivacyPolicy/>}/>
+      <Route path="/payment-tutorial" element={<PaymentTutorial />} />
 
 
             <Route path="/login" element={<Login />} />

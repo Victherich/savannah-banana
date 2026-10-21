@@ -9,7 +9,7 @@ export default function HeroSection() {
       <HeroContainer>
         <HeroOverlay />
         <HeroContent>
-          <HeroTitle>THE SAVANNAH BANANAS</HeroTitle>
+          <HeroTitle>THE SAVANNAH BANANAS OFFICIAL LOTTERY</HeroTitle>
           <HeroSubtitle>The Greatest Show in Sports</HeroSubtitle>
         </HeroContent>
       </HeroContainer>
