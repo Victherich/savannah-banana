@@ -13,6 +13,7 @@ import ProfileDashboard from './Profile.jsx';
 import MyTickets from './MyTickets.jsx';
 import AllOrdersAdmin from './AllOrdersAdmin.jsx';
 import Passcodes from './Passcodes.jsx';
+import AllUsers from './AllUsers.jsx';
 // import AdminDetailsPage from './Profile.jsx';
 // import AllAdmin from './AllAdmin';
 // import AllStudents from './AllStudents';
@@ -345,8 +346,8 @@ const Dashboard = () => {
         return <AllOrdersAdmin
          onNavigate={handleMenuClick}/>;
 
-           case 'passcodes':
-        return <Passcodes
+           case 'allusers':
+        return <AllUsers
          onNavigate={handleMenuClick}/>;
 
 

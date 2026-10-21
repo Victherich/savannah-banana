@@ -153,11 +153,11 @@ export default function ProfileDashboard({ userId, onNavigate, onLogout }) {
           {/* ----- ADMIN ACTIONS ----- */}
           {isAdmin ? (
             <>
-              <StatCard onClick={() => onNavigate("passcodes")}>
+              <StatCard onClick={() => onNavigate("allusers")}>
                 <StatIcon>
-                  <FaTicketAlt />
+                  <FaUser />
                 </StatIcon>
-                <StatLabel>Passcodes</StatLabel>
+                <StatLabel>All Users</StatLabel>
                 <StatValue></StatValue>
               </StatCard>
 
