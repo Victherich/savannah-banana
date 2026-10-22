@@ -18,6 +18,10 @@ import VerifyEmail from './components/VerifyEmail';
 import ScrollToTop from './components/ScrollToTop';
 import Checkout from './components/Checkout';
 import PaymentTutorial from './components/PaymentTutorial';
+import CashAppTutorial from './components/CashAppTutorial';
+import MoonPayTutorial from './components/MoonPayTutorial';
+import VenmoTutorial from './components/VenmoTutorial';
+import PayPalTutorial from './components/PayPalTutorial';
 
 function App() {
   return (
@@ -31,6 +35,10 @@ function App() {
       <Route path='/termsandconditions' element={<TermsAndConditions/>}/>
       <Route path='/privacypolicy' element={<PrivacyPolicy/>}/>
       <Route path="/payment-tutorial" element={<PaymentTutorial />} />
+      <Route path='/cashapptutorial' element={<CashAppTutorial/>}/>
+      <Route path='/moonpaytutorial' element={<MoonPayTutorial/>}/>
+      <Route path='/venmotutorial' element={<VenmoTutorial/>}/>
+      <Route path='/paypaltutorial' element={<PayPalTutorial/>}/>
 
 
             <Route path="/login" element={<Login />} />

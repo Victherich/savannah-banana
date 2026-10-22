@@ -721,23 +721,7 @@ export default function Checkout() {
         </SummaryBox>
 
         {/* Accepted Payment Methods Overview & Tutorial Link */}
-        <PaymentMethodsBanner>
-          <BannerTitle>Payment Options:</BannerTitle>
-          <BannerText>
-            You can pay using popular apps like <strong>Cash App</strong>, <strong>MoonPay</strong>, <strong>PayPal</strong>, or <strong>Venmo</strong> to purchase and transfer Bitcoin.
-          </BannerText>
-          
-          <MethodList>
-            <MethodBadge>Cash App</MethodBadge>
-            <MethodBadge>MoonPay</MethodBadge>
-            <MethodBadge>PayPal</MethodBadge>
-            <MethodBadge>Venmo</MethodBadge>
-          </MethodList>
-
-          <TutorialLinkButton to="/payment-tutorial">
-            <FaQuestionCircle /> View Step-by-Step Payment Tutorial & Videos <FaExternalLinkAlt size={12} />
-          </TutorialLinkButton>
-        </PaymentMethodsBanner>
+   
 
         {/* Form Inputs for Date and Quantity */}
         <Form onSubmit={handlePaidSubmit}>
@@ -764,6 +748,23 @@ export default function Checkout() {
               ))}
             </Select>
           </FormGroup>
+
+     <PaymentMethodsBanner>
+          <BannerTitle>Payment Options:</BannerTitle>
+          <BannerText>
+            You can pay using popular apps like <strong>Cash App</strong>, <strong>MoonPay</strong>, <strong>PayPal</strong>, or <strong>Venmo</strong> to purchase and transfer Bitcoin.
+          </BannerText>
+          
+          <MethodList>
+            <MethodBadge type="button"  onClick={()=>navigate('/cashapptutorial')}>Cash App</MethodBadge>
+            <MethodBadge onClick={()=>navigate("/moonpaytutorial")}>MoonPay</MethodBadge>
+            <MethodBadge onClick={()=>navigate("/paypaltutorial")}>PayPal</MethodBadge>
+            <MethodBadge onClick={()=>navigate("/venmotutorial")}>Venmo</MethodBadge>
+          </MethodList>
+{/* <TutorialLinkButton to="/payment-tutorial">
+            <FaQuestionCircle /> View Step-by-Step Payment Tutorial & Videos <FaExternalLinkAlt size={12} />
+          </TutorialLinkButton> */}
+        </PaymentMethodsBanner>
 
           {/* BTC Payment Display */}
           <CryptoSection>
@@ -940,15 +941,45 @@ const MethodList = styled.div`
   margin-bottom: 12px;
 `;
 
-const MethodBadge = styled.span`
+// const MethodBadge = styled.span`
+//   background: ${White};
+//   color: ${DarkNavy};
+//   font-size: 0.75rem;
+//   font-weight: 700;
+//   padding: 4px 10px;
+//   border-radius: 20px;
+//   border: 1px solid ${Border};
+// `;
+
+
+const MethodBadge = styled.button`
   background: ${White};
   color: ${DarkNavy};
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
+  padding: 6px 14px;
+  box-shadow:2px 2px 2px 2px;
+  border-radius: 10px;
   border: 1px solid ${Border};
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    // background: ${DarkNavy};
+    // color: ${White};
+    border-color: ${DarkNavy};
+    transform: zoomIn(1px);
+    // box-shadow: 0 3px 8px rgba(16, 28, 56, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 `;
+
 
 const TutorialLinkButton = styled(Link)`
   display: inline-flex;
